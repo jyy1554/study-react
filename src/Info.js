@@ -1,22 +1,12 @@
-import React, { useReducer } from 'react';
-
-function reducer(state, action) {
-  return {
-    ...state,
-    [action.name]: action.value
-  };
-}
+import React from 'react';
+import useInputs from './useInputs';
 
 const Info = () => {
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, onChange] = useInputs({
     name: '',
     nickname: ''
   });
   const {name, nickname} = state;
-
-  const onChange = e => { //인풋 개수가 많아져도 코드를 짧고 깔끔하게 유지 가능
-    dispatch(e.target);
-  };
 
   return (
     <div>
