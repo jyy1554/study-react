@@ -1,11 +1,23 @@
 import React from 'react';
 import styled, {css} from 'styled-components';
+/* 단순 변수의 형태가 아니라 여러 줄의 스타일 구문을 조건부로 설정해야 하는 경우에는 css를 불러와야 함 */
+
 
 const Box = styled.div`
   /* props로 넣어 준 값을 직접 전달해 줄 수 있음*/
   background: ${props => props.color || 'blue'};
   padding: 1rem;
   display: flex;
+  /* 기본적으로는 가로 크기 1024px에 가운데 정렬을 하고
+    가로 크기가 작아짐에 따라 크기를 줄이고 768px 미만이 되면 꽉 채움 */
+  width: 1024px;
+  margin: 0 auto;
+  @media (max-width: 1024px) {
+    width: 768px;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Button = styled.button`
