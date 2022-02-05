@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import SpreadOperator from './components/R011_SpreadOperator';
+import ArrowFunc from './components/R013_ArrowFunction';
 
 function App() {
   return (
     <div>
       <h1>Start React 200!</h1>
       <p>CSS 적용하기</p>
-      <SpreadOperator/>
+      <ArrowFunc/>
     </div>
   );
 }
