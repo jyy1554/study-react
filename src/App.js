@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import ReactHook from './components/R031_ReactHook';
+import ReturnMap from './components/R033_ReturnMap';
 
 function App() {
   return (
     <div>
       <h1>Start React 200!</h1>
       <p>CSS 적용하기</p>
-      <ReactHook/>
+      <ReturnMap/>
     </div>
   );
 }
