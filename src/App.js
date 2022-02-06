@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
-import Jquery from './components/R016_Jquery';
+import PropsNode from './components/R023_PropsNode';
 
 function App() {
   return (
     <div>
       <h1>Start React 200!</h1>
       <p>CSS 적용하기</p>
-      <Jquery/>
+      <PropsNode>
+        <span>node from App.js</span>
+      </PropsNode>
     </div>
   );
 }
