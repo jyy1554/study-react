@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import SetState from './components/R025_SetState';
+import ReactHook from './components/R031_ReactHook';
 
 function App() {
   return (
     <div>
       <h1>Start React 200!</h1>
       <p>CSS 적용하기</p>
-      <SetState/>
+      <ReactHook/>
     </div>
   );
 }
