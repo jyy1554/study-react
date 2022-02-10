@@ -1,18 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
-import App from './App';
-import {createStore} from 'redux';
-import reducers from './reducers';
+import App from './components/App';
+//import * as serviceWorker from './serviceWorker';
 
-const store = createStore(reducers);
+ReactDOM.render((
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+), document.getElementById('root'));
 
-const listener = () => {
-  ReactDOM.render(
-    <App store={store}/>,
-    document.getElementById('root')
-  );
-};
-
-store.subscribe(listener);
-listener(); //초기 렌더링을 위해 수동으로 render 함수를 실행시켜줌
+//serviceWorker.unregister();
