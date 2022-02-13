@@ -6,6 +6,7 @@ import Footer from './Footer/Footer';
 import LoginForm from './LoginForm';
 import FloatingPopulationList from './Floating_population/floatingPopulationList';
 import RechartsSimpleLineChart from './Floating_population/rechartsSimpleLineChart';
+import FloatingPopulationListChart from './Floating_population/floatingPopulationListChart';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/" exact element={<LoginForm />} />
         <Route path='/floatPopulationList' exact element={<FloatingPopulationList />} />
         <Route path='/rechartsSimpleLineChart' exact element={<RechartsSimpleLineChart />} />
+        <Route path='/floatingPopulationListChart' exact element={<FloatingPopulationListChart />} />
       </Routes>
       <Footer/>
     </div>
