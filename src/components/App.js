@@ -5,6 +5,7 @@ import HeaderAdmin from './Header/HeaderAdmin';
 import Footer from './Footer/Footer';
 import LoginForm from './LoginForm';
 import FloatingPopulationList from './Floating_population/floatingPopulationList';
+import RechartsSimpleLineChart from './Floating_population/rechartsSimpleLineChart';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Routes>
         <Route path="/" exact element={<LoginForm />} />
         <Route path='/floatPopulationList' exact element={<FloatingPopulationList />} />
+        <Route path='/rechartsSimpleLineChart' exact element={<RechartsSimpleLineChart />} />
       </Routes>
       <Footer/>
     </div>
