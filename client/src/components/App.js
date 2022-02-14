@@ -4,10 +4,8 @@ import '../css/new.css';
 import HeaderAdmin from './Header/HeaderAdmin';
 import Footer from './Footer/Footer';
 import LoginForm from './LoginForm';
-import FloatingPopulationList from './Floating_population/floatingPopulationList';
-import RechartsSimpleLineChart from './Floating_population/rechartsSimpleLineChart';
-import FloatingPopulationListChart from './Floating_population/floatingPopulationListChart';
-import FloatingPopulationScatterChart from './Floating_population/floatingPopulationScatterChart';
+import ReactProxy from './R109_reactProxy';
+import ApiGetJson from './R110_ApiGetJson';
 
 const App = () => {
   return (
@@ -15,10 +13,8 @@ const App = () => {
       <HeaderAdmin/>
       <Routes>
         <Route path="/" exact element={<LoginForm />} />
-        <Route path='/floatPopulationList' exact element={<FloatingPopulationList />} />
-        <Route path='/rechartsSimpleLineChart' exact element={<RechartsSimpleLineChart />} />
-        <Route path='/floatingPopulationListChart' exact element={<FloatingPopulationListChart />} />
-        <Route path='/floatingPopulationScatterChart' exact element={<FloatingPopulationScatterChart />} />
+        <Route path='/reactProxy' exact element={<ReactProxy />} />
+        <Route path='/ApiGetJson' exact element={<ApiGetJson />} />
       </Routes>
       <Footer/>
     </div>
