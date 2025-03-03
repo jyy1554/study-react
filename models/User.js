@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
   },
   email: {
     type: String,
-    trim: true,
+    trim: true, // 공백이 추가되었을때 없애주는 역할
     unique: 1
   },
   password: {
@@ -31,6 +31,6 @@ const userSchema = mongoose.Schema({
   }
 })
 
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema);
 
 module.exports = { User }
