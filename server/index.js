@@ -1,19 +1,14 @@
 const express = require('express');
 const app = express();
-const port = 5000;
-
 const config = require('./config/key');
-
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-
 const { auth } = require("./middleware/auth");
 const { User } = require("./models/User");
 
 // bodyParser 옵션값을 줘야함
 app.use(bodyParser.urlencoded({extended: true})); // application/x-www-form-urlencoded
 app.use(bodyParser.json()); // application/json
-
 app.use(cookieParser());
 
 
@@ -21,18 +16,22 @@ app.use(cookieParser());
 const mongoose = require('mongoose');
 mongoose.set('strictQuery',false);
 mongoose.connect(config.mongoURI, {
-  
+
 })
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
 app.get('/', (req, res) => {
-  res.send('Hello World! 안녕하세요!')
+  res.send('Hello World! 안녕하세요!');
+});
+
+app.get('/hello', (req, res) => {
+  res.send("안녕하세요");
 });
 
 
 // 회원가입을 위한 라우트
-app.post('/api/users/register', (req, res) => {
+app.post('/users/register', (req, res) => {
   // 회원가입할때 필요한 정보들을 client에서 가져오면
   // 그것들을 데이터베이스에 넣어준다.
   const user = new User(req.body); // bodyParser가 있어서 req.body로 쓸 수 있음
@@ -48,7 +47,7 @@ app.post('/api/users/register', (req, res) => {
 
  
 // 로그인하기
-app.post('/api/users/login', (req, res) => {
+app.post('/users/login', (req, res) => {
   // 요청한 이메일이 데이터베이스에 있는지 찾는다.
   User.findOne({ email: req.body.email }, (err, user) => {
     if(!user) {
@@ -85,7 +84,7 @@ app.post('/api/users/login', (req, res) => {
 
 
 // auth router
-app.get('/api/users/auth', auth, (req, res) => {  // auth는 미들웨어
+app.get('/users/auth', auth, (req, res) => {  // auth는 미들웨어
 
   // 여기까지 미들웨어를 통과해왔다는 얘기는 Authentication이 True라는 말
   res.status(200).json({
@@ -102,7 +101,7 @@ app.get('/api/users/auth', auth, (req, res) => {  // auth는 미들웨어
 
 
 // 로그아웃
-app.get('/api/users/logout', auth, (req, res) => {
+app.get('/users/logout', auth, (req, res) => {
 
   User.findOneAndUpdate({ _id: req.user._id },{
     token: ""
@@ -114,6 +113,8 @@ app.get('/api/users/logout', auth, (req, res) => {
   });
 })
 
+
+const port = 5000;
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
