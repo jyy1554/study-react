@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>구구단</title>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <!--<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>-->
+        <!--<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>-->
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+            'use strict';
+
+            const Gugudan = () => {
+                const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
+                const [second, setSecond] = React.useState(Math.ceil(Math.random() * 9));
+                const [value, setValue] = React.useState('');
+                const [result, setResult] = React.useState('');
+
+                let input;
+
+                const onChange = (e) => {
+                    setValue(e.target.value);
+                };
+
+                const onSubmit = (e) => {
+                    e.preventDefault();
+
+                    if(parseInt(value) === first * second) {
+                    setResult(`정답: ${value}`);
+                    setFirst(Math.ceil(Math.random() * 9));
+                    setSecond(Math.ceil(Math.random() * 9));
+                    setValue('');
+                    } else {
+                    setResult('땡');
+                    setValue('');
+                    }
+
+                    input.focus();
+                };
+
+                const onRef = (c) => {
+                    input = c;
+                }
+
+                return (
+                    <div>
+                        <div>{first} 곱하기 {second}는?</div>
+                        <form onSubmit={onSubmit}>
+                            <input ref={onRef} type="number" value={value} onChange={onChange} />
+                            <button type="submit">입력!</button>
+                        </form>
+                        <div>{result}</div>
+                    </div>
+                );
+            }
+        </script>
+        <script type="text/babel">
+            ReactDOM.createRoot(document.querySelector("#root")).render(<Gugudan />);
+        </script>
+    </body>
+</html>
