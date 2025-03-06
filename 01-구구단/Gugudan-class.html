@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>구구단</title>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <!--<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>-->
+        <!--<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>-->
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+            class Gugudan extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        first: Math.ceil(Math.random() * 9), // 1부터 9까지
+                        second: Math.ceil(Math.random() * 9),
+                        value: '',
+                        result: '',
+                    }
+                }
+
+                // 실무에선 위 constructor 보단 아래처럼 많이 씀
+                // state = {
+                //     first: Math.ceil(Math.random() * 9), // 1부터 9까지
+                //     second: Math.ceil(Math.random() * 9),
+                //     value: '',
+                //     result: '',
+                // }
+
+                // class의 메서드로 만듦
+                onSubmit = (e) => { // 화살표 함수 써야됨. function 쓰면 this가 달라짐
+                    e.preventDefault();
+                    
+                    if(parseInt(this.state.value) === this.state.first * this.state.second) {
+                        // this.setState({
+                        //     result: `정답: ${this.state.value}`, // 미래 value와 헷갈릴 수 있음
+                        //     first: Math.ceil(Math.random() * 9),
+                        //     second: Math.ceil(Math.random() * 9),
+                        //     value: '',
+                        // });
+                        this.setState((prevState) => {
+                            return {
+                                result: `정답: ${prevState.value}`,
+                                first: Math.ceil(Math.random() * 9),
+                                second: Math.ceil(Math.random() * 9),
+                                value: '',
+                            };
+                        });
+                    } else {
+                        this.setState({
+                            result: '땡',
+                            value: '',
+                        });
+                    }
+
+                    this.input.focus(); // ref에 대한.. 계속 input창에 포커스가 되기 위해
+                };
+
+                onChange = (e) => {
+                    this.setState({ value: e.target.value });
+                };
+
+                onRefInput = (c) => { this.input = c; };
+
+                render() {
+                    return ( // 변할것들에 state 넣어줌
+                        <div>
+                            <div>{this.state.first} 곱하기 {this.state.second}는?</div>
+                            <form onSubmit={this.onSubmit}>
+                                <input ref={this.onRefInput} type="number" value={this.state.value} onChange={this.onChange} />
+                                <button type="submit">입력!</button>
+                            </form>
+                            <div>{this.state.result}</div>
+                        </div>
+                    );
+                }
+            }
+        </script>
+        <script type="text/babel">
+            // ReactDOM.render(<Gugudan />, document.querySelector('#root')); // React 17버전 코드
+            ReactDOM.createRoot(document.querySelector('#root')).render(<div><Gugudan /><Gugudan /><Gugudan /></div>); // React 18버전 코드
+                                                                        // 3개의 각각 다른 구구단을 만들 수 있다
+        </script>       
+    </body>
+</html>
