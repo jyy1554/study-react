@@ -18,12 +18,22 @@ module.exports = {
       loader: 'babel-loader',
       options: {
         presets: [
-          '@babel/preset-env',
+          ['@babel/preset-env', {
+            targets: {
+              browsers: ['> 5% in KR'],
+            },
+            debug: true,
+          }],
           '@babel/preset-react',
         ],
+        plugins: ['@babel/plugin-proposal-class-properties'],
       },
     }],
   },
+
+  plugins: [
+    
+  ],
 
   output: {
     path: path.join(__dirname, 'dist'),
