@@ -1,4 +1,8 @@
 const path = require('path');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const webpack = require('webpack');
+
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   name: 'word-relay-dev',
@@ -12,31 +16,49 @@ module.exports = {
     app: './client',
   }, // 입력
 
+  mode: isDevelopment ? 'development' : 'production',
+
   module: {
     rules: [{
       test: /\.jsx?$/,
-      loader: 'babel-loader',
-      options: {
-        presets: [
-          ['@babel/preset-env', {
-            targets: {
-              browsers: ['> 5% in KR'],
-            },
-            debug: true,
-          }],
-          '@babel/preset-react',
-        ],
-        plugins: ['@babel/plugin-proposal-class-properties'],
-      },
+      exclude: /node_modules/,
+      use: [
+        {
+          loader: require.resolve('babel-loader'),
+          options: {
+            presets: [
+              ['@babel/preset-env', {
+                targets: {
+                  browsers: ['> 5% in KR'],
+                },
+                debug: true,
+              }],
+              '@babel/preset-react',
+            ],
+            plugins: [
+              isDevelopment && require.resolve('@babel/plugin-proposal-class-properties'),
+              isDevelopment && require.resolve('react-refresh/babel'),
+            ].filter(Boolean),
+          },
+        },
+      ],
     }],
   },
 
   plugins: [
-    
-  ],
+    isDevelopment && new webpack.HotModuleReplacementPlugin(),
+    isDevelopment && new ReactRefreshWebpackPlugin(),
+  ].filter(Boolean),
 
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'dist'), // 실제 경로
     filename: 'app.js',
+    publicPath: '/dist/', // 가상 경로
   }, // 출력
+
+  devServer: {
+    devMiddleware: { publicPath: '/dist' }, // 빌드 결과 위치 설정
+    static: { directory: path.resolve(__dirname) }, // 실제 존재하는 정적파일들의 경로 (index.html 파일 위치)
+    hot: true,  // hot reload 활성화
+  },
 };

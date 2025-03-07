@@ -16,26 +16,20 @@ class WordRelay extends Component {
 
     // console.log('submit', this.state.word.slice(0,1));
 
-    if (this.state.word.slice(this.state.word.length - 1) === this.state.value.slice(0,1)) {
-      this.setState((prevState) => {
-        return {
-          word: prevState.value,
-          value: '',
-          result: '정답',
-        };
+    if (this.state.word[this.state.word.length - 1] === this.state.value[0]) {
+      this.setState({
+        result: '딩동댕',
+        word: this.state.value,
+        value: '',
       });
     } else {
-      return {
-        value:'',
+      this.setState({
         result: '땡',
-      };
+        value: '',
+      });
     }
 
     this.input.focus();
-  };
-
-  onRefInput = (c) => {
-    this.input = c;
   };
 
   onChange = (e) => {
@@ -44,6 +38,12 @@ class WordRelay extends Component {
     this.setState({
       value: e.target.value,
     });
+  };
+
+  input;
+
+  onRefInput = (c) => {
+    this.input = c;
   };
 
   render() {
