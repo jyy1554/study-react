@@ -30,7 +30,9 @@ const WordRelay = () => {
     <>
       <div>{word}</div>
       <form onSubmit={onSubmit}>
-        <input ref={inputRef} value={value} onChange={onChange} />
+        {/* for와 class는 JS의 예약어이기 때문에 JSX에서는 htmlFor와 className이라고 써야됨 */}
+        <label id='label' htmlFor="wordInput">글자를 입력하세요.</label>
+        <input id='wordInput' className="wordInput" ref={inputRef} value={value} onChange={onChange} />
         <button>입력</button>
       </form>
       <div>{result}</div>
