@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; // 우리는 babel 덕분에 import 쓸 수 있음
+import React, { Component, createRef } from 'react'; // 우리는 babel 덕분에 import 쓸 수 있음
 import Try from './Try';
 
 const getNumbers = () => {  // 숫자 4개를 겹치지 않고 랜덤하게 뽑는 함수
@@ -79,7 +79,7 @@ class NumberBaseballClass extends Component {
       }
     }
 
-    this.input.focus();
+    this.inputRef.current.focus();
   }
 
   onChange = (e) => {
@@ -88,11 +88,7 @@ class NumberBaseballClass extends Component {
     });
   }
 
-  input;
-
-  onRefInput = (c) => {
-    this.input = c;
-  }
+  inputRef = createRef();
 
   render() {
     const { result, value, tries } = this.state;
@@ -101,7 +97,7 @@ class NumberBaseballClass extends Component {
       <>
         <h1>{result}</h1>
         <form onSubmit={this.onSubmit}>
-          <input maxLength={4} ref={this.onRefInput} value={value} onChange={this.onChange} />
+          <input maxLength={4} ref={this.inputRef} value={value} onChange={this.onChange} />
           <button type="submit">입력</button>
         </form>
         <div>시도: {tries.length}</div>
