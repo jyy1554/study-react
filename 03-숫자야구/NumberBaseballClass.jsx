@@ -2,65 +2,77 @@ import React, { Component } from 'react'; // 우리는 babel 덕분에 import �
 import Try from './Try';
 
 const getNumbers = () => {  // 숫자 4개를 겹치지 않고 랜덤하게 뽑는 함수
+  const candidate = [1,2,3,4,5,6,7,8,9];
+  const array = [];
 
+  for (let i = 0; i < 4; i++) {
+    const chosen = candidate.splice(Math.floor(Math.random() * (9 - i)), 1)[0];
+    array.push(chosen);
+
+    // const randomNum = candidate[Math.floor(Math.random() * 9)];
+    // if(array.indexOf(randomNum) === -1) {
+    //   array.push(randomNum);
+    // }else {
+    //   i--;
+    // }
+  }
+
+  return array;
 }
 
 class NumberBaseballClass extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     result: '',
-  //     value: '',
-  //     answer: getNumbers(), // 바깥에 만들어야됨!!!!
-  //     tries: [],
-  //     history: '',
-  //   };
-  //   this.onSubmit = this.onSubmit.bind(this); // 화살표 함수 안쓰고 onSubmit() {} 이렇게 쓰는 경우 여기서 bind 안하면 this 못씀
-  //   this.onChange = this.onChange.bind(this);
-  // }
-
   state = {
     result: '',
     value: '',
     answer: getNumbers(), // 바깥에 만들어야됨!!!!
-    tries: [],
-    history: '',
+    tries: [],  // push쓰면 안됨. push 쓰면 (메모리 참조 시) 기존 배열과 차이가 없어 리액트에서 변화를 감지하지 못함
   };
 
   onSubmit = (e) => { // 화살표 함수를 안쓰면 constructor를 써야됨
     e.preventDefault();
 
-    const num = this.state.value;
-    const target = this.state.answer.map((element) => element.toString());
-    let strike = 0;
-    let ball = 0;
+    const { value, answer, tries } = this.state;
 
-    for(let i = 0; i < num.length; i++) {
-      if(target.includes(num[i]) && (target[i] === num[i])) {
-        strike++;
-      } else if(target.includes(num[i]) && !(target[i] === num[i])) {
-        ball++;
+    if (value === answer.join('')) {
+      this.setState({
+        result: '홈런!',
+        tries: [...tries, { try: value, result: '홈런!' }],
+      });
+      alert('게임을 다시 시작합니다.');
+      this.setState({
+        value: '',
+        answer: getNumbers(),
+        tries: [],
+      });
+    } else {  // 답 틀렸으면
+      const valueArray = value.split('').map((v) => parseInt(v));
+      let strike = 0;
+      let ball = 0;
+
+      if (tries.length >= 9) { // 10번 이상 틀렸을때
+        this.setState({
+          result: `10번 넘게 틀려 실패! 답은 ${answer.join(',')}였습니다!`,
+        });
+        alert('게임을 다시 시작합니다.');
+        this.setState({
+          value: '',
+          answer: getNumbers(),
+          tries: [],
+        });
+      } else {
+        for (let i = 0; i < 4; i++) {
+          if (valueArray[i] === answer[i]) {
+            strike++;
+          } else if (answer.includes(valueArray[i])) {
+            ball++;
+          }
+        }
+
+        this.setState({
+          tries: [...tries, { try: value, result: `${strike} 스트라이크, ${ball} 볼` }],
+          value: '',
+        });
       }
-    }
-
-    if (strike === 4) {
-      this.setState({
-        result: '홈런',
-        history: '',
-        value: '',
-        answer: [Math.ceil(Math.random() * 9), Math.ceil(Math.random() * 9), Math.ceil(Math.random() * 9), Math.ceil(Math.random() * 9)],
-      });
-
-      const his = document.querySelector('.history');
-      his.textContent = '';
-    } else {
-      this.setState({
-        result: `S: ${strike} B: ${ball}`,
-        history: `${this.state.value} -> S: ${strike} B: ${ball}`,
-        value: '',
-      });
-
-      this.addHistory();
     }
 
     this.input.focus();
@@ -78,62 +90,21 @@ class NumberBaseballClass extends Component {
     this.input = c;
   }
 
-  addHistory = () => {
-    const his = document.querySelector('.history');
-    const element = document.createElement('article');
-    element.textContent = this.state.history;
-    console.log(this.state.history);
-    his.appendChild(element);
-  }
-
-  fruits = [
-    { fruit: '사과', taste: '맛있다'},
-    { fruit: '배', taste: '맛있다'},
-    { fruit: '포도', taste: '맛있다'},
-    { fruit:'감', taste: '맛있다'},
-    { fruit:'밤', taste: '맛있다'},
-    { fruit: '사과', taste: '맛없다'},
-  ];
-
   render() {
+    const { result, value, tries } = this.state;
+
     return (
       <>
-        <h1>{this.state.result}</h1>
+        <h1>{result}</h1>
         <form onSubmit={this.onSubmit}>
-          <input maxLength={4} ref={this.onRefInput} value={this.state.value} onChange={this.onChange} />
+          <input maxLength={4} ref={this.onRefInput} value={value} onChange={this.onChange} />
           <button type="submit">입력</button>
         </form>
-        <div>시도: {this.state.tries.length}</div>
+        <div>시도: {tries.length}</div>
         <ul>
-          {/* {['가', '나', '다'].map((item) => {
+          {tries.map((v, i) => {
             return (
-              <li>{item}</li>
-            );
-          })} */}
-
-          {/* {[['사과', '맛있다'], ['배', '맛있다'], ['포도', '맛있다'], ['감', '맛있다'], ['밤', '맛있다']].map((v) => {
-            return (
-              <li><b>{v[0]}</b> - {v[1]}</li>
-            );
-          })} */}
-
-          {/* {[  // 객체를 더 많이씀
-            { fruit: '사과', taste: '맛있다'},
-            { fruit: '배', taste: '맛있다'},
-            { fruit: '포도', taste: '맛있다'},
-            { fruit:'감', taste: '맛있다'},
-            { fruit:'밤', taste: '맛있다'},
-            { fruit: '사과', taste: '맛없다'},
-          ].map((v) => {
-            return (
-              <li key={v.fruit + v.taste}><b>{v.fruit}</b> - {v.taste}</li> // 반복문을 돌릴때는 key를 적어줘야함
-            );
-          })} */}
-
-          {this.fruits.map((v, i) => {
-            return (
-              // 긴 코드를 따로 Component로 빼는 이유 : 가독성, 재사용성, 성능최적화
-              <Try key={v.fruit + v.taste} value={v} index={i} /> // value, index 같은 것들을 React에서는 props라고 부름
+              <Try key={`${i}차 시도: `} tryInfo={v} />
             );
           })}
         </ul>
