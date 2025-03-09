@@ -60,15 +60,20 @@ const ResponseCheck = () => {
       >
         {message}
       </div>
+      {/* JSX의 return 내부에서 if 사용하는 방법 (즉시 실행함수로 써야됨) */}
+      {/* {(() => {
+        if (result.length === 0) {
+          return null;
+        } else {
+          return (
+            <>
+              <div>평균 시간: {result.reduce((a, c) => a + c) / result.length} ms</div>
+              <button onClick={onReset}>리셋</button>
+            </>
+          );
+        }
+      })()} */}
       {resultAverage()}
-      {/* { 
-        this.state.result.length === 0 ? 
-        null : <div>평균 시간: {this.state.result.reduce((a, c) => a + c) / this.state.result.length} ms</div>
-      }
-      {
-        this.state.result.length !== 0
-        && <div>평균 시간: {this.state.result.reduce((a, c) => a + c) / this.state.result.length} ms</div>
-      } */}
     </>
   );
 };
