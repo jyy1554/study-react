@@ -56,6 +56,9 @@ module.exports = {
     publicPath: '/dist/', // 가상 경로
   }, // 출력
 
+  /* webpack-dev-server 사용시 dist 폴더는 컴퓨터 메모리(RAM)에서 생성됨.
+     따라서, 개발 시에는 dist 폴더가 생성되지 않으나 정상 작동함.
+   */
   devServer: {
     devMiddleware: { publicPath: '/dist' }, // 빌드 결과 위치 설정
     static: { directory: path.resolve(__dirname) }, // 실제 존재하는 정적파일들의 경로 (index.html 파일 위치)
