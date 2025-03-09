@@ -9,7 +9,7 @@ module.exports = {
   mode: 'development',
   devtool: 'eval',
   resolve: {
-    extenstions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
   },
 
   entry:{
@@ -27,7 +27,7 @@ module.exports = {
           loader: require.resolve('babel-loader'),
           options: {
             presets: [
-              ['@babel/preset/env', {
+              ['@babel/preset-env', {
                 targets: {
                   browsers: ['> 5% in KR'],
                 },
@@ -45,9 +45,9 @@ module.exports = {
     }],
   },
 
-  pugins:[
+  plugins:[
     isDevelopment && new webpack.HotModuleReplacementPlugin(),
-    isDevelopment && ReactRefreshWebpackPlugin(),
+    isDevelopment && new ReactRefreshWebpackPlugin(),
   ].filter(Boolean),
 
   output: {
