@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import useInterval from './useInterval';  // 커스텀 훅
 
 const rspCoords = {
   바위: '0',
@@ -23,15 +24,16 @@ const RSP = () => {
   const [imgCoord, setImgCoord] = useState(rspCoords.바위);
   const [score, setScore] = useState(0);
 
-  const interval = useRef();  // let interval;이라 쓰면 안됨!!
+  // const interval = useRef();  // let interval;이라 쓰면 안됨!!
+  const [isRunning, setIsRunning] = useState(true);
 
-  useEffect(() => { // componentDidMount, ComponentDidUpdate 역할을 함 (1대1 대응은 아님)
-    interval.current = setInterval(changeHand, 300);
+  // useEffect(() => { // componentDidMount, ComponentDidUpdate 역할을 함 (1대1 대응은 아님)
+  //   interval.current = setInterval(changeHand, 300);
 
-    return () => {  // componentWillUnmount 역할
-      clearInterval(interval.current);
-    }
-  }, [imgCoord]); // 두번째 인수 배열에 넣은 값들이 바뀔때마다 useEffect가 실행됨
+  //   return () => {  // componentWillUnmount 역할
+  //     clearInterval(interval.current);
+  //   }
+  // }, [imgCoord]); // 두번째 인수 배열에 넣은 값들이 바뀔때마다 useEffect가 실행됨
 
   const changeHand = () => { // 1초마다 가위바위보가 돌아감
 
@@ -44,26 +46,33 @@ const RSP = () => {
     }
   };
 
+  useInterval(changeHand, isRunning ? 300 : null);
+
   const onClickBtn = (choice) => () => {  // render에서 onClick={() => this.onClickBtn('바위')}의 ()=> 빼려고, () => 한번더 써줌
-    clearInterval(interval.current);  // useRef를 쓰고 있으므로
+    // clearInterval(interval.current);  // useRef를 쓰고 있으므로
 
-    const myScore = scores[choice];
-    const cpuScore = scores[computerChoice(imgCoord)];
-    const diff = myScore - cpuScore;
+    if (isRunning) {
+      setIsRunning(false);  // 선택했을때 잠깐 멈추기
 
-    if (diff === 0) {
-      setResult('비겼습니다.');
-    } else if ([-1, 2].includes(diff)) {
-      setResult('이겼습니다.');
-      setScore((prevScore) => prevScore + 1);
-    } else {
-      setResult('졌습니다.');
-      setScore((prevScore) => prevScore - 1);
+      const myScore = scores[choice];
+      const cpuScore = scores[computerChoice(imgCoord)];
+      const diff = myScore - cpuScore;
+
+      if (diff === 0) {
+        setResult('비겼습니다.');
+      } else if ([-1, 2].includes(diff)) {
+        setResult('이겼습니다.');
+        setScore((prevScore) => prevScore + 1);
+      } else {
+        setResult('졌습니다.');
+        setScore((prevScore) => prevScore - 1);
+      }
+
+      setTimeout(() => {
+        // interval.current = setInterval(changeHand, 300);  // useRef를 쓰고 있으므로
+        setIsRunning(true);
+      }, 1000);
     }
-
-    setTimeout(() => {
-      interval.current = setInterval(changeHand, 300);  // useRef를 쓰고 있으므로
-    }, 1000);
   }
 
   return (
