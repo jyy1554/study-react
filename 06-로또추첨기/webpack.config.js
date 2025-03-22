@@ -16,7 +16,7 @@ module.exports = {
     app: './client',
   }, // 입력
 
-  mode: isDevelopment? 'development' : 'production',
+  mode: isDevelopment ? 'development' : 'production',
 
   module: {
     rules: [{
