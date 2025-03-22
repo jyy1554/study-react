@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import LottoClass from './LottoClass';
+import Lotto from './Lotto';
 
 const root = createRoot(document.querySelector('#root'));
-root.render(<LottoClass />);
+root.render(<Lotto />);
