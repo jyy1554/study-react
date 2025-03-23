@@ -1,7 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 import Td from './Td';
 
-const Tr = ({ rowData, rowIndex, dispatch }) => {
+// 계속 tr 3개가 리렌더링 되므로 memo를 사용하여 최적화
+const Tr = memo(({ rowData, rowIndex, dispatch }) => {
+  console.log('tr rendered');
+
   return (
     <tr>
       {Array(rowData.length).fill().map((td, i) => (
@@ -9,6 +12,6 @@ const Tr = ({ rowData, rowIndex, dispatch }) => {
       ))}
     </tr>
   );
-};
+});
 
 export default Tr;
