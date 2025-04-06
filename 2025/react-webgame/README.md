@@ -10,7 +10,6 @@
 2. 아래와 같이 게임을 진행한다.
    - 정답을 입력한 경우, 정답과 함께 다음 문제로 넘어간다.
    - 오답을 입력한 경우, '땡'이 표시되고 재입력할 기회를 준다. 
-<img width="252" alt="image" src="https://github.com/user-attachments/assets/64271059-4f74-4c5c-848e-bb9ae89c56ff" />
 <br/>
 
 ## 02. 끝말잇기
@@ -19,7 +18,6 @@
 2. 계속해서 화면에 표시된 단어의 끝글자로 시작하는 단어를 입력하여 게임을 진행한다.
    - 올바른 답을 입력한 경우, 하단에 '정답'이라는 글자가 표시되며 사용자가 입력한 단어가 상단에 표시된다.
    - 잘못된 답을 입력한 경우, 하단에 '땡'이라는 글자가 표시되며 상단의 단어가 변경되지 않는다.
-<img width="335" alt="image" src="https://github.com/user-attachments/assets/2fe587b6-3cc3-436f-b76c-e25fa85d4a68" />
 <br/>
 
 ## 03. 숫자야구
@@ -28,7 +26,6 @@
 2. 네자리 숫자를 입력한다. 
    - 숫자는 맞지만 위치가 틀렸을 때는 BALL
    - 숫자와 위치가 전부 맞으면 STRIKE
-<img width="271" alt="image" src="https://github.com/user-attachments/assets/9d933fd4-6b90-4536-a8e1-f3e1a135e068" />
 <br/>
 
 ## 04. 반응속도 체크
@@ -38,7 +35,6 @@
 3. 잠시 대기 후 초록색 박스로 바뀌면 클릭한다. (참고로 박스 색깔이 변경되는 시점은 랜덤)
    - 초록색으로 바뀌고 나서 박스를 클릭한 경우, 박스 아래에 반응 시간이 ms 단위로 표시된다. 
    - 초록색으로 바뀌기 전 박스를 클릭한 경우, '너무 성급하시군요!...'라는 문구와 함께 게임이 초기화된다.
-<img width="319" alt="image" src="https://github.com/user-attachments/assets/81687981-224a-4b32-bba9-ffdb58533815" />
 <br/>
 
 ## 05. 가위바위보
@@ -49,7 +45,6 @@
    - 사용자가 이겼을 경우, '이겼습니다'라는 메세지와 함께 점수가 +1 된다. 
    - 사용자가 졌을 경우, '졌습니다'라는 메세지와 함께 점수가 -1 된다.
    - 사용자가 비겼을 경우, '비겼습니다'라는 메세지와 점수가 변경되지 않는다. 
-<img width="234" alt="image" src="https://github.com/user-attachments/assets/f7321d56-bc8f-431e-ad8f-866b145a742c" />
 <br/>
 
 ## 06. 로또추첨기
@@ -61,12 +56,10 @@
    - 31 ~ 40 : 파란색 공
    - 41 ~ 45 : 초록색 공
 2. '한번 더' 버튼을 클릭하면 새로운 로또 추첨번호가 나온다.
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/7a1f5a2f-d2bd-4036-a15d-4bf3b6eaf9e5" />
 <br/>
 
 ## 07. 틱택토
 [게임 설명]
 1. O 또는 X 3개를 직선으로 이어지게 만들면 이기는 게임이다.
 2. O 또는 X가 이기는 경우, 승자가 아래에 표시되며, 비기는 경우에는 게임이 리셋된다.
-<img width="167" alt="image" src="https://github.com/user-attachments/assets/12bcf385-fd73-436a-a9e8-70fd47a33e6e" />
 <br/>
